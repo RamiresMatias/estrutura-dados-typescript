@@ -1,0 +1,1 @@
+export type ItemsType<T> = {[k: number]: T}

@@ -1,13 +1,29 @@
 import { ItemsType } from "../types/types"
 
-export class Queue<T>{
+export class Deque<T>{
     constructor(
         private count: number = 0,
         private lowestCount: number = 0,
         private items: ItemsType<T> = {},
     ) {}
 
-    enqueue(element: T): void {
+    addFront(element: T): void {
+        if(this.isEmpty()) {
+            this.addBack(element)
+        } else if (this.lowestCount > 0) {
+            this.lowestCount--
+            this.items[this.lowestCount] = element
+        } else {
+            for(let i = this.count; i > 0; i--) {
+                this.items[i] = this.items[i - 1]
+            }
+            this.count++
+            this.lowestCount - 0
+            this.items[0] = element
+        }
+    }
+
+    addBack(element: T): void {
         this.items[this.count] = element
         this.count++
     }
@@ -16,27 +32,12 @@ export class Queue<T>{
         return this.items
     }
 
-    dequeue(): T | undefined {
-        if(this.isEmpty()) return undefined
-        
-        const result = this.items[this.lowestCount]
-        delete this.items[this.lowestCount]
-        this.lowestCount++
-        return result
-    }
-
     isEmpty(): boolean {
         return this.size() === 0
     }
 
     size(): number {
         return  this.count - this.lowestCount
-    }
-
-    peek(): T  | undefined {
-        if(this.isEmpty()) return undefined
-
-        return this.items[this.lowestCount]
     }
 
     clear(): void {
