@@ -18,7 +18,7 @@ export class Deque<T>{
                 this.items[i] = this.items[i - 1]
             }
             this.count++
-            this.lowestCount - 0
+            this.lowestCount = 0
             this.items[0] = element
         }
     }
@@ -26,6 +26,24 @@ export class Deque<T>{
     addBack(element: T): void {
         this.items[this.count] = element
         this.count++
+    }
+
+    removeFront(): T | undefined {
+        if(this.isEmpty()) return undefined
+        
+        const result = this.items[this.lowestCount]
+        delete this.items[this.lowestCount]
+        this.lowestCount++
+        return result
+    }
+
+    removeBack(): T | undefined {
+        if(this.isEmpty()) return undefined
+        
+        this.count--
+        const result = this.items[this.count]
+        delete this.items[this.count]
+        return result
     }
 
     getItems(): ItemsType<T> {
@@ -37,7 +55,7 @@ export class Deque<T>{
     }
 
     size(): number {
-        return  this.count - this.lowestCount
+        return this.count - this.lowestCount
     }
 
     clear(): void {
