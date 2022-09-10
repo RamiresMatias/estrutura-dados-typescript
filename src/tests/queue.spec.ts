@@ -1,6 +1,6 @@
 import {describe, it} from 'mocha'
 import {expect} from 'chai'
-import { Queue } from '../queue-deques/queue'
+import { Queue } from '../queueDeque/queue'
 
 const mockQueue = () => {
   return new Queue<string>()
