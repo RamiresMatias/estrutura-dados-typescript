@@ -1,11 +1,14 @@
 import { defaultEquals } from "../util/util";
+import { DoublyNode } from "./doublyNode";
 import { Node } from "./node";
 
 export default class LinkedList<T> {
+
+    protected count: number = 0
+    protected head: Node<T> | DoublyNode<T> | undefined = undefined
+
     constructor(
-        private count: number = 0,
-        private head: Node<T> | undefined = undefined,
-        private equalsFn: Function = defaultEquals
+        public equalsFn: Function = defaultEquals
     ) {}
 
     push(element: T): void {
