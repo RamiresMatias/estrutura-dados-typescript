@@ -1,11 +1,8 @@
 import LinkedList from "./linkedList"
-import { defaultEquals } from "../util/util";
+import { Compare, defaultEquals } from "../util/util";
 
 
-const Compare = {
-    LESS_THAN: -1,
-    BIGGER_THAN: 1
-}
+
 
 function defaultCompare(a: any, b: any) {
     if(a === b) return 0

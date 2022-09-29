@@ -1,4 +1,4 @@
-class ValuePair {
+export class ValuePair {
     constructor(
         public key: string,
         public value: any
