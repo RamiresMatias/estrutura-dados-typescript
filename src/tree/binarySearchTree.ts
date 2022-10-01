@@ -3,7 +3,7 @@ import { Node } from "./node";
 
 export class BinarySearchTree<T> {
     constructor(
-        private root: Node | null
+        protected root: Node | null
     ) {}
 
     insert(key: T): void {
