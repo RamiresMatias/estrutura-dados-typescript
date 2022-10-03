@@ -47,4 +47,79 @@ export class AVLTree<T> extends BinarySearchTree<T> {
         node.right = this.rotationLL(node.right as Node)
         return this.rotationRR(node)
     }
+    
+    insert(key: T): void {
+        this.root = this.insertNode(this.root as Node, key)
+    }
+
+    insertNode(node: Node | null, key: T): Node {
+
+        if(node === null) {
+            return new Node(key)
+        } else if (key < node.key) {
+            node.left = this.insertNode(node.left, key)
+        } else if (key > node.key) {
+            node.right = this.insertNode(node.right, key)
+        } else {
+            return node
+        }
+
+        const balanceFactor = this.getBalanceFactor(node)
+        if(balanceFactor === BalanceFactor.UNBALANCED_LEFT) {
+            if(key < node.left?.key) {
+                node = this.rotationLL(node)
+            } else {
+                return this.rotationLR(node)
+            }
+        }
+
+        if(balanceFactor === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
+            if(key > node.right?.key) {
+                node = this.rotationRR(node)
+            } else {
+                return this.rotationRL(node)
+            }
+        }
+
+        return node
+    }
+
+    removeNode(node: Node | null, key: T): Node | null {
+        node = super.removeNode(node, key)
+        if(node == null) {
+            return node
+        }
+
+        const balanceFactor = this.getBalanceFactor(node)
+
+        if(balanceFactor === BalanceFactor.UNBALANCED_LEFT) {
+            const balanceFactorLeft = this.getBalanceFactor(node.left as Node)
+            if(
+                balanceFactorLeft === BalanceFactor.BALANCED ||
+                balanceFactorLeft === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT
+            ) {
+                return this.rotationLL(node)
+            }
+
+            if(balanceFactorLeft === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT) {
+                return this.rotationLR(node.left as Node)
+            }
+        }
+
+        if(balanceFactor === BalanceFactor.UNBALANCED_RIGHT) {
+            const balanceFactorRight = this.getBalanceFactor(node.right as Node)
+            if(
+                balanceFactorRight === BalanceFactor.BALANCED ||
+                balanceFactorRight === BalanceFactor.SLIGHTLY_UNBALANCED_RIGHT
+            ) {
+                return this.rotationRR(node)
+            }
+
+            if(balanceFactorRight === BalanceFactor.SLIGHTLY_UNBALANCED_LEFT) {
+                return this.rotationRL(node.right as Node)
+            }
+        }
+
+        return node
+    }
 }

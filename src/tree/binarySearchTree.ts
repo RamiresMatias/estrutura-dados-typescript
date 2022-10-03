@@ -106,7 +106,6 @@ export class BinarySearchTree<T> {
     removeNode(node: Node | null, key: T) {
         if(node == null) return null
 
-        console.log(node?.key);
         if(key < node.key) {
             node.left = this.removeNode(node.left, key) as Node | null
             return node 
