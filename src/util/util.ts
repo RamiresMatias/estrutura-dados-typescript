@@ -14,3 +14,8 @@ export enum BalanceFactor {
     SLIGHTLY_UNBALANCED_LEFT = 4,
     UNBALANCED_LEFT = 5,
 }
+
+export enum Colors {
+    BLACK = 'BLACK',
+    RED = 'RED'
+}

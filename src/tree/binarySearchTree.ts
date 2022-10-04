@@ -133,6 +133,30 @@ export class BinarySearchTree<T> {
            
         }
     }
+
+    rotationLL(node: Node): Node {
+        const temp = node.left as Node
+        node.left = temp.right
+        temp.right = node 
+        return temp
+    }
+
+    rotationRR(node: Node): Node {
+        const temp = node.right as Node
+        node.right = temp.left
+        temp.left = node
+        return temp
+    }
+
+    rotationLR(node: Node): Node {
+        node.left = this.rotationRR(node.left as Node)
+        return this.rotationLL(node)
+    }
+
+    rotationRL(node: Node): Node {
+        node.right = this.rotationLL(node.right as Node)
+        return this.rotationRR(node)
+    }
 }
 
 const printNode = (value: any) => console.log(value);
