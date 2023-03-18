@@ -34,7 +34,7 @@ export class Dictionary {
 
     get(key: string): any {
         const valuePair = this.table[key]
-        return valuePair === null ? undefined : valuePair.value
+        return valuePair === null ? undefined : valuePair?.value
     }
 
     keyValues(): ValuePair[] {

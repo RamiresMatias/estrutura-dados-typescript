@@ -2,7 +2,7 @@ import { defaultEquals } from "../util/util";
 import LinkedList from "./linkedList";
 import { Node } from "./node";
 
-export default class circularLinkedList<T> extends LinkedList<T> {
+export default class CircularLinkedList<T> extends LinkedList<T> {
     constructor(equalsFn: Function = defaultEquals) {
         super(equalsFn)
     }
