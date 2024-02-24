@@ -12,6 +12,12 @@ export default class Graph {
     this.adjList = new Dictionary();
   }
 
+  addVertices(myVertices: any[]) {
+    for (let i = 0; i < myVertices.length; i++) {
+      this.addVertex(myVertices[i]);
+    }
+  }
+
   addVertex(v: string) {
     if (!this.vertices.includes(v)) {
       this.vertices.push(v);
@@ -224,6 +230,12 @@ export default class Graph {
     color[u] = ColorsGraph.BLACK;
     f[u] = ++time.count;
   };
+
+  dijkstra(source: any) {
+    let visited = {}
+    let distances = {}
+    let parents = {}
+  }
 }
 
 /**
@@ -265,7 +277,7 @@ const printVertex = (value: any) => console.log("Visited vertex: " + value);
 // graph.breadthFirstSearch(myVertices[0], printVertex)
 // graph.depthFirstSearch(printVertex)
 
-console.log(graph.DFS());
+// console.log(graph.DFS());
 
 // const shortesPathA = graph.BFS(myVertices[0]);
 // var fromVertex = myVertices[0];

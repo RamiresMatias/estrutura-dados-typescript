@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/out/graphs/minimumSpanningTree.js",
+      "program": "${workspaceFolder}/out/graphs/algorithmDijkstra.js",
       "outFiles": [
         "${workspaceFolder}/**/*.js"
       ]
