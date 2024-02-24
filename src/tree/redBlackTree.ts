@@ -1,4 +1,4 @@
-import { Colors } from "../util/util";
+import { Colors } from "../types/types";
 import { BinarySearchTree } from "./binarySearchTree";
 import {Node} from './node'
 

@@ -1,6 +1,6 @@
 import { Dictionary } from "../dictionaryAndHashmaps/dictionary";
 import { Queue } from "../queueDeque/queue";
-import { Colors, ColorsGraph } from "../util/util";
+import { ColorsGraph } from "../types/types";
 
 export default class Graph {
   private isDirected: boolean = false;

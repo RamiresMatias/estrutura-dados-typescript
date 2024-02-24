@@ -10,3 +10,13 @@ function fibonacci(n: number): number {
     return fibonacci(n - 1) + fibonacci(n - 2)
 }
 
+const visited: {[key: number]: number} = {}
+function fibonacciOptimized(n: number): number {
+    if(n in visited) return visited[n]
+    else if(n < 2) return n
+    else {
+        visited[n] = fibonacci(n - 1) + fibonacci(n - 2)
+        return visited[n]
+    }
+    
+}

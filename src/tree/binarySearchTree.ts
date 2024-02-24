@@ -1,4 +1,3 @@
-import { Compare, defaultEquals } from "../util/util";
 import { Node } from "./node";
 
 export class BinarySearchTree<T> {

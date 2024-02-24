@@ -1,27 +1,18 @@
+const INF = Number.MAX_SAFE_INTEGER
+
 export function defaultEquals(a: any, b: any): boolean {
-    return a === b
+  return a === b
 }
 
-export enum Compare {
-    LESS_THAN = -1,
-    BIGGER_THAN = 1
+export const minDistance = (dist: any[], visited: any[]) => {
+  let min = INF
+  let minIndex = -1
+  for(let v = 0; v < dist.length; v++) {
+    if(visited[v] === false && dist[v] <= min) {
+      min = dist[v]
+      minIndex = v
+    }
+  }
+  return minIndex
 }
 
-export enum BalanceFactor {
-    UNBALANCED_RIGHT = 1,
-    SLIGHTLY_UNBALANCED_RIGHT = 2,
-    BALANCED = 3,
-    SLIGHTLY_UNBALANCED_LEFT = 4,
-    UNBALANCED_LEFT = 5,
-}
-
-export enum Colors {
-    BLACK = 'BLACK',
-    RED = 'RED'
-}
-
-export enum ColorsGraph {
-    WHITE = 0,
-    GREY = 1,
-    BLACK = 2
-}

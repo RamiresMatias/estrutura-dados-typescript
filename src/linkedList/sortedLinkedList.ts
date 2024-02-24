@@ -1,8 +1,6 @@
 import LinkedList from "./linkedList"
-import { Compare, defaultEquals } from "../util/util";
-
-
-
+import { defaultEquals } from "../util/util";
+import { Compare } from "../types/types";
 
 function defaultCompare(a: any, b: any) {
     if(a === b) return 0

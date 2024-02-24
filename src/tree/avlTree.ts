@@ -1,4 +1,4 @@
-import { BalanceFactor } from "../util/util";
+import { BalanceFactor } from "../types/types";
 import { BinarySearchTree } from "./binarySearchTree";
 import { Node } from "./node";
 

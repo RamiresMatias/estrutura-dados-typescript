@@ -1,23 +1,17 @@
 {
-    "compilerOptions": {
-        "target": "ES2019",
-        "module": "CommonJS",
-        "lib": ["DOM", "ESNext"],
-        "outDir": "./dist",
-        "rootDir": "./src",
-        "removeComments": true,
-        "noEmitOnError": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "include": [
-        "./src"
-    ],
-    "exclude": [
-        "./tests/",
-        "./node_modules/",
-        "./dist/"
-    ],
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "target": "ES2022",
+    "module": "CommonJS",
+    "outDir": "out",
+    "sourceMap": true
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "./tests/",
+    "./node_modules/",
+    "./dist/"
+  ]
 }
