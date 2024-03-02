@@ -1,6 +1,7 @@
 import { Dictionary } from "../dictionaryAndHashmaps/dictionary";
 import { Queue } from "../queueDeque/queue";
 import { ColorsGraph } from "../types/types";
+import { INF, initializeColor } from "../util/util";
 
 export default class Graph {
   private isDirected: boolean = false;
@@ -18,11 +19,16 @@ export default class Graph {
     }
   }
 
-  addVertex(v: string) {
-    if (!this.vertices.includes(v)) {
-      this.vertices.push(v);
-      this.adjList.set(v, []);
+  addVertex(vertex: string) {
+    if (!this.vertices.includes(vertex)) {
+      this.vertices.push(vertex);
+      this.adjList.set(vertex, {});
     }
+  }
+
+  addEdgeWeight({vertex1, vertex2, weight}: {vertex1: string, vertex2: string, weight: number}) {
+    if(Number.isNaN(weight)) return
+    this.adjList.get(vertex1)[vertex2] = weight
   }
 
   addEdge(v: string, w: string) {
@@ -232,48 +238,77 @@ export default class Graph {
   };
 
   dijkstra(source: any) {
-    let visited = {}
-    let distances = {}
-    let parents = {}
+    const visited = new Set()
+    const distances = {}
+    const parents = {}
+    const {length} = this.vertices
+
+    for(let i = 0; i < length; i++) {
+      distances[this.vertices[i]] = INF
+      visited[this.vertices[i]] = false
+      parents[this.vertices[i]] = null
+    }
+
+    distances[source] = 0
+    let currentVertex = this.vertexMinDistance(distances, visited)
+
+    while(currentVertex !== null) {
+      
+      let distance = distances[currentVertex]
+      const neighbors = this.getAdjList().get(currentVertex)
+      visited.add(currentVertex)
+
+      for (const neighbor in neighbors) {
+
+        const newDistance = distance + +neighbors[neighbor]
+
+        if (distances[neighbor] > newDistance) {
+          distances[neighbor] = newDistance
+          parents[neighbor] = currentVertex
+        }
+      }
+      currentVertex = this.vertexMinDistance(distances, visited)
+    }
+
+    return distances
+  }
+
+  vertexMinDistance(distances: {}, visited: Set<any>) {
+    let minDistance = INF
+    let minVertex = null
+    for(const vertex in distances) {
+      const distance = distances[vertex]
+      if(distance <= minDistance && !visited.has(vertex)) {
+        minDistance = distance
+        minVertex = vertex
+      }
+    }
+    return minVertex
   }
 }
 
-/**
- * Inicializa os vértices do grafo com cores, para marcar se foi visitado e validado
- * WHITE - Não visitado
- * GREY - Descoberto
- * BLACK - Explorado
- * @param vertices
- * @returns
- */
-const initializeColor = (vertices: string[]) => {
-  const color: any = {};
-  for (let i = 0; i < vertices.length; i++) {
-    color[vertices[i]] = ColorsGraph.WHITE;
-  }
-  return color;
-};
 
-const graph = new Graph();
-const myVertices = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-for (let i = 0; i < myVertices.length; i++) {
-  graph.addVertex(myVertices[i]);
-}
 
-graph.addEdge("A", "B");
-graph.addEdge("A", "D");
-graph.addEdge("A", "C");
-graph.addEdge("C", "D");
-graph.addEdge("C", "G");
-graph.addEdge("D", "G");
-graph.addEdge("D", "H");
-graph.addEdge("B", "E");
-graph.addEdge("B", "F");
-graph.addEdge("E", "I");
+// const graph = new Graph();
+// const myVertices = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+// for (let i = 0; i < myVertices.length; i++) {
+//   graph.addVertex(myVertices[i]);
+// }
+
+// graph.addEdge("A", "B");
+// graph.addEdge("A", "D");
+// graph.addEdge("A", "C");
+// graph.addEdge("C", "D");
+// graph.addEdge("C", "G");
+// graph.addEdge("D", "G");
+// graph.addEdge("D", "H");
+// graph.addEdge("B", "E");
+// graph.addEdge("B", "F");
+// graph.addEdge("E", "I");
 
 // console.log(graph.toString())
 
-const printVertex = (value: any) => console.log("Visited vertex: " + value);
+// const printVertex = (value: any) => console.log("Visited vertex: " + value);
 // graph.breadthFirstSearch(myVertices[0], printVertex)
 // graph.depthFirstSearch(printVertex)
 
