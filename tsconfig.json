@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    "target": "ES2022",
+    "target": "ESNext",
     "module": "CommonJS",
     "outDir": "out",
     "sourceMap": true
