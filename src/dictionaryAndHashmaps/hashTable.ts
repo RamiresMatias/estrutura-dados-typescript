@@ -5,7 +5,7 @@ export class HashTable {
         private table: { [key: string]: ValuePair } = {},
     ) {}
 
-    loseloseHashCode(key: string): number {
+    loseHashCode(key: string): number {
         let hash = 0
         for(let i = 0; i < key.length; i++) {
             hash += key.charCodeAt(i)
@@ -14,11 +14,11 @@ export class HashTable {
     }
 
     hashCode(key: string): number {
-        return this.loseloseHashCode(key)
+        return this.loseHashCode(key)
     }
 
     put(key: string, value: any): boolean {
-        if(key !== null && value !== null) return false
+        if(key === null && value === null) return false
 
         const position = this.hashCode(key)
         this.table[position] = new ValuePair(key, value)
@@ -27,7 +27,7 @@ export class HashTable {
 
     get(key: string): any {
         const valuePair = this.table[this.hashCode(key)]
-        return valuePair === null ? undefined : valuePair.value
+        return !valuePair ? undefined : valuePair.value
     }
 
     remove(key: string): boolean {
@@ -40,3 +40,9 @@ export class HashTable {
         return true
     }
 }
+
+const table = new HashTable()
+table.put('aa', 23)
+table.put('ab', 23)
+console.log(table.hashCode('aa'));
+console.log(table.hashCode('ab'));
