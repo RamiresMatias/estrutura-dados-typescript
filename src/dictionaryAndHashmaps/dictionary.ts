@@ -1,7 +1,7 @@
-export class ValuePair {
+export class ValuePair<T> {
     constructor(
         public key: string,
-        public value: any
+        public value: T
     ){}
 
     toString(): string {
@@ -9,9 +9,9 @@ export class ValuePair {
     }
 }
 
-export class Dictionary {
+export class Dictionary<T> {
     constructor(
-        private table: { [key: string]: ValuePair } = {},
+        private table: { [key: string]: ValuePair<T> } = {},
     ) {}
 
     hasKey(key: string): boolean {
@@ -37,7 +37,7 @@ export class Dictionary {
         return valuePair === null ? undefined : valuePair?.value
     }
 
-    keyValues(): ValuePair[] {
+    keyValues(): ValuePair<T>[] {
         return Object.values(this.table)
     }
 

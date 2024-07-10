@@ -1,8 +1,10 @@
+import LinkedList from "../linkedList/linkedList"
 import { ValuePair } from "./dictionary"
 
-export class HashTable {
+// Tabela hash com encadeamento separado
+export class HashTable<T> {
     constructor(
-        private table: { [key: string]: ValuePair } = {},
+        private table: { [key: string]: LinkedList<ValuePair<T>> } = {},
     ) {}
 
     loseHashCode(key: string): number {
@@ -21,28 +23,67 @@ export class HashTable {
         if(key === null && value === null) return false
 
         const position = this.hashCode(key)
-        this.table[position] = new ValuePair(key, value)
+
+        if (!this.table[position]) {
+            this.table[position] = new LinkedList()
+        }
+        this.table[position].push(new ValuePair(key, value))
         return true
     }
 
     get(key: string): any {
-        const valuePair = this.table[this.hashCode(key)]
-        return !valuePair ? undefined : valuePair.value
+        const position = this.hashCode(key)
+        const linkedList = this.table[position]
+
+        if (linkedList !== null && !linkedList.isEmpty()) {
+            let current = linkedList.getHead()
+            while(!!current) {
+                if (current?.element?.key === key) {
+                    return current.element.value
+                }
+                current = current?.next
+            }
+        }        
+        return undefined
     }
 
     remove(key: string): boolean {
-        const hash = this.hashCode(key)
-        const valuePair = this.table[hash]
+        const position = this.hashCode(key)
+        const linkedList = this.table[position]
+        if (linkedList !== null && !linkedList.isEmpty()) {
+            let current = linkedList.getHead()
+            while(current !== null) {
+                if (current?.element?.key === key) {
+                    linkedList.remove(current.element)
+                    if (linkedList.isEmpty()) {
+                        delete this.table[position]
+                    }
+                    return true
+                }
+                current = current?.next || null
+            }
+        }
+        return false
+    }
+    isEmpty () {
+        return !Object.keys(this.table).length
+    }
 
-        if(!valuePair) return false
+    toString () {
+        if (this.isEmpty()) return ''
 
-        delete this.table[hash]
-        return true
+        const keys = Object.keys(this.table)
+        let objString = `${keys[0]} => ${this.table[keys[0]].toString()}`
+        for(let i = 1; i < keys.length; i++) {
+            objString += `${objString}, ${keys[i]} => ${this.table[keys[i]].toString()}`
+        }
+        return objString
     }
 }
 
-const table = new HashTable()
-table.put('aa', 23)
-table.put('ab', 23)
-console.log(table.hashCode('aa'));
-console.log(table.hashCode('ab'));
+const table = new HashTable<string>()
+table.put('Jonathan', 'jonathan@gmail.com')
+table.put('Jamie', 'jamie@email.com')
+table.remove('Jonathan')
+console.log(table.get('Jonathan'));
+// Encadeamento separado

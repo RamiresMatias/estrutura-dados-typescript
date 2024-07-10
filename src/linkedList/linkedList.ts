@@ -116,8 +116,3 @@ export default class LinkedList<T> {
         return objString
     }
 }
-
-const linkedList = new LinkedList<string>()
-
-linkedList.push('Maria')
-console.log(linkedList);
