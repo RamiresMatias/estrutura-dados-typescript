@@ -1,17 +1,8 @@
-export class ValuePair<T> {
-    constructor(
-        public key: string,
-        public value: T
-    ){}
-
-    toString(): string {
-        return `[#${this.key}: ${this.value}]`
-    }
-}
+import { ValuePair } from "../models/valuePair"
 
 export class Dictionary<T> {
     constructor(
-        private table: { [key: string]: ValuePair<T> } = {},
+        private table: { [key: string]: ValuePair<string, T> } = {},
     ) {}
 
     hasKey(key: string): boolean {
@@ -37,7 +28,7 @@ export class Dictionary<T> {
         return valuePair === null ? undefined : valuePair?.value
     }
 
-    keyValues(): ValuePair<T>[] {
+    keyValues(): ValuePair<string, T>[] {
         return Object.values(this.table)
     }
 

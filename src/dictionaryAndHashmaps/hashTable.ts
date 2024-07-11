@@ -1,10 +1,10 @@
 import LinkedList from "../linkedList/linkedList"
-import { ValuePair } from "./dictionary"
+import { ValuePair } from "../models/valuePair"
 
 // Tabela hash com encadeamento separado
 export class HashTable<T> {
     constructor(
-        private table: { [key: string]: LinkedList<ValuePair<T>> } = {},
+        private table: { [key: string]: LinkedList<ValuePair<string, T>> } = {},
     ) {}
 
     loseHashCode(key: string): number {
